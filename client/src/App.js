@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+//import React, {Component} from 'react';
+import React from 'react';
 import CustomerAdd from './components/CustomerAdd';
 import './App.css';
 import Paper from '@material-ui/core/Paper'
