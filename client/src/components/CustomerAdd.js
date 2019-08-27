@@ -20,7 +20,7 @@ class  CustomerAdd extends React.Component {
         this.addCustomer()
             .then((response) => {
                 console.log(response.data);
-                this.props.stateRefresh();
+                this.props.stateRefresh(); // 고객을 추가한 이후에 서버로 응답을 받고나서 고객 목록을 다시 불러와야하므로 여기에 작성해야한다.
             })
         this.setState({
             file: null,
