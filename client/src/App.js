@@ -1,4 +1,5 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
+import CustomerAdd from './components/CustomerAdd';
 import './App.css';
 import Paper from '@material-ui/core/Paper'
 import Customer from './components/Customer'
@@ -26,11 +27,24 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-  state = {
-    customers: "",
-    completed: 0 // 프로그래스 바를 위한 변수
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: "",
+      completed: 0  // 프로그래스 바를 위한 변수
+    }
   }
-  
+
+  stateRefresh = () => {
+    this.setState({
+      customers: "",
+      completed: 0
+    });
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
   componentWillUnmount() {
     clearInterval(this.timer);
   }
@@ -56,7 +70,8 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div>
+        <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableCell>번호</TableCell> 
@@ -80,6 +95,9 @@ class App extends React.Component {
         </TableBody>
       </Table>
       </Paper>
+      <CustomerAdd stateRefresh={this.stateRefresh}/> {/* 함수 자체를 props 형태로 보내는 부분 */}
+      </div>
+      
    );
   }
 }
